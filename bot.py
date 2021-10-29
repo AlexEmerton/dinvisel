@@ -1,5 +1,4 @@
-from telegram.ext import Updater
-from telegram.ext import CommandHandler
+from telegram.ext import MessageHandler, CommandHandler, Filters, Updater
 import logging
 import os
 
@@ -17,6 +16,11 @@ def start(update, context):
         chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
 
 
+def image(update, context):
+    context.bot.send_photo(chat_id=update.effective_chat.id,
+                           photo="https://static.wikia.nocookie.net/cyberpunk/images/0/0d/Cyberpunk2077_Wallpapers_Arasaka_1080x1920_EN.png")
+
+
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
@@ -28,6 +32,8 @@ def main():
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
+
+    dispatcher.add_handler(MessageHandler(Filters.text, image))
 
     # log all errors
     dispatcher.add_error_handler(error)
