@@ -5,7 +5,7 @@ import os
 
 TOKEN = '1722312756:AAFi_ipQO6nvqOjf7IREZS7_BgP7GsMneUo'
 PORT = int(os.environ.get('PORT', '8443'))
-APP_NAME = 'https://dinvisel.herokuapp.com'
+APP_NAME = 'https://dinvisel.herokuapp.com/'
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
