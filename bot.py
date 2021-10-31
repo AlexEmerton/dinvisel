@@ -38,7 +38,7 @@ def main():
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
 
-    dispatcher.add_handler(MessageHandler(Filters.text, image))
+    # dispatcher.add_handler(MessageHandler(Filters.text, image))
 
     dispatcher.add_handler(MessageHandler(
         Filters.text, say_family, [MessageEntity.MENTION]))
