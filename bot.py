@@ -20,12 +20,15 @@ def start(update, context):
 def call_for_rainbow(update, context):
     message = context.bot.send_message(
         chat_id=update.effective_chat.id, text="сегодня го?")
-    context.bot.pin_chat_message(update.effective_chat.id, message['message_id'])
+    context.bot.pin_chat_message(
+        update.effective_chat.id, message['message_id'])
 
 
-def image(update, context):
+def ma_balls(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="ma balls")
+
     context.bot.send_photo(chat_id=update.effective_chat.id,
-                           photo="https://static.wikia.nocookie.net/cyberpunk/images/0/0d/Cyberpunk2077_Wallpapers_Arasaka_1080x1920_EN.png")
+                           photo="https://assets.heart.co.uk/2018/02/vin-diesel-good-morning-britain-1516363267-herowidev4-0.jpg")
 
 
 def error(update, context):
@@ -34,6 +37,8 @@ def error(update, context):
 
 
 def main():
+    joke_regex = r'\w*ma\b'
+
     updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
@@ -41,6 +46,8 @@ def main():
     dispatcher.add_handler(start_handler)
 
     # dispatcher.add_handler(MessageHandler(Filters.text, image))
+
+    dispatcher.add_handler(MessageHandler(Filters.regex(joke_regex)), ma_balls)
 
     dispatcher.add_handler(MessageHandler(
         (Filters.entity('mention') & Filters.regex(r'go?')), call_for_rainbow))
