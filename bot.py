@@ -41,7 +41,7 @@ def main():
     # dispatcher.add_handler(MessageHandler(Filters.text, image))
 
     dispatcher.add_handler(MessageHandler(
-        Filters.text, say_family, [MessageEntity.MENTION]))
+        Filters.entity('mention'), say_family))
 
     # log all errors
     dispatcher.add_error_handler(error)
