@@ -47,7 +47,7 @@ def main():
 
     # dispatcher.add_handler(MessageHandler(Filters.text, image))
 
-    dispatcher.add_handler(MessageHandler(Filters.regex(joke_regex)), ma_balls)
+    dispatcher.add_handler(MessageHandler(Filters.regex(joke_regex), ma_balls))
 
     dispatcher.add_handler(MessageHandler(
         (Filters.entity('mention') & Filters.regex(r'go?')), call_for_rainbow))
