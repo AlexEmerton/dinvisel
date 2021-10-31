@@ -1,4 +1,5 @@
 from telegram.ext import MessageHandler, CommandHandler, Filters, Updater
+from telegram.messageentity import MessageEntity
 import logging
 import os
 
@@ -39,7 +40,8 @@ def main():
 
     dispatcher.add_handler(MessageHandler(Filters.text, image))
 
-    dispatcher.add_handler(MessageHandler(Filters.text, say_family))
+    dispatcher.add_handler(MessageHandler(
+        Filters.text, say_family, [MessageEntity.MENTION]))
 
     # log all errors
     dispatcher.add_error_handler(error)
