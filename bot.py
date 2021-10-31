@@ -17,8 +17,10 @@ def start(update, context):
         chat_id=update.effective_chat.id, text="yo")
 
 
-def say_family(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="family!")
+def call_for_rainbow(update, context):
+    message = context.bot.send_message(
+        chat_id=update.effective_chat.id, text="сегодня го?")
+    context.bot.pin_chat_message(update.effective_chat.id, message['message_id'])
 
 
 def image(update, context):
@@ -41,7 +43,7 @@ def main():
     # dispatcher.add_handler(MessageHandler(Filters.text, image))
 
     dispatcher.add_handler(MessageHandler(
-        (Filters.entity('mention') & Filters.regex(r'go?')), say_family))
+        (Filters.entity('mention') & Filters.regex(r'go?')), call_for_rainbow))
 
     # log all errors
     dispatcher.add_error_handler(error)
