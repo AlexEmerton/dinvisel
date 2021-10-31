@@ -1,5 +1,4 @@
 from telegram.ext import MessageHandler, CommandHandler, Filters, Updater
-from telegram.messageentity import MessageEntity
 import logging
 import os
 
@@ -14,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 def start(update, context):
     context.bot.send_message(
-        chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
+        chat_id=update.effective_chat.id, text="yo")
 
 
 def say_family(update, context):
@@ -40,7 +39,7 @@ def main():
 
     dispatcher.add_handler(MessageHandler(Filters.text, image))
 
-    dispatcher.add_handler(MessageHandler(MessageEntity.MENTION, say_family))
+    dispatcher.add_handler(MessageHandler(Filters.text, say_family))
 
     # log all errors
     dispatcher.add_error_handler(error)
