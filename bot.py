@@ -17,8 +17,7 @@ def start(update, context):
 
 
 def say_family(update, context):
-    context.bot.send_message(
-        chat_id=update.effective_chat.id, text="family!")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="family!")
 
 
 def image(update, context):
@@ -40,7 +39,7 @@ def main():
 
     dispatcher.add_handler(MessageHandler(Filters.text, image))
 
-    dispatcher.add_handler(MessageHandler("mention", say_family))
+    dispatcher.add_handler(MessageHandler('mention', say_family))
 
     # log all errors
     dispatcher.add_error_handler(error)
