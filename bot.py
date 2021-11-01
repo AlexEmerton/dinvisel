@@ -24,6 +24,14 @@ def call_for_rainbow(update, context):
         update.effective_chat.id, message['message_id'])
 
 
+# search for stats
+
+def get_stats_for_name(update, context):
+    context.bot.send_message(
+        chat_id=update.effective_chat.id, text=context.args[0]
+    )
+
+
 def ma_balls(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="ma balls")
 
@@ -51,6 +59,9 @@ def main():
 
     dispatcher.add_handler(MessageHandler(
         (Filters.entity('mention') & Filters.regex(r'go?')), call_for_rainbow))
+
+    dispatcher.add_handler(MessageHandler(
+        (Filters.entity('mention') & Filters.regex(r'stats')), get_stats_for_name))
 
     # log all errors
     dispatcher.add_error_handler(error)
