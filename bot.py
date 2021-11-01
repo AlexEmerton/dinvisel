@@ -1,10 +1,9 @@
 from telegram.ext import MessageHandler, CommandHandler, Filters, Updater
-from telegram.messageentity import MessageEntity
 import logging
 import requests
 import os
 
-TOKEN = '1722312756:AAFi_ipQO6nvqOjf7IREZS7_BgP7GsMneUo'
+TOKEN = os.environ['TOKEN']
 PORT = int(os.environ.get('PORT', '8443'))
 APP_NAME = 'https://dinvisel.herokuapp.com/'
 
@@ -25,8 +24,6 @@ def call_for_rainbow(update, context):
         update.effective_chat.id, message['message_id'])
 
 
-# search for stats
-
 def get_stats_for_name(update, context):
     if context.args[0]:
         url = "https://r6.tracker.network/profile/pc/{}".format(
@@ -35,7 +32,6 @@ def get_stats_for_name(update, context):
     r = requests.get(url)
 
     if r.status_code == 200:
-
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text="Чёрт найден!")
@@ -72,8 +68,6 @@ def main():
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(stat_handler)
 
-    # dispatcher.add_handler(MessageHandler(Filters.text, image))
-
     dispatcher.add_handler(MessageHandler(Filters.regex(joke_regex), ma_balls))
 
     dispatcher.add_handler(MessageHandler(
@@ -81,8 +75,6 @@ def main():
 
     # log all errors
     dispatcher.add_error_handler(error)
-
-    # updater.start_polling()
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
