@@ -1,6 +1,7 @@
 from telegram.ext import MessageHandler, CommandHandler, Filters, Updater
 from telegram.messageentity import MessageEntity
 import logging
+import requests
 import os
 
 TOKEN = '1722312756:AAFi_ipQO6nvqOjf7IREZS7_BgP7GsMneUo'
@@ -27,10 +28,24 @@ def call_for_rainbow(update, context):
 # search for stats
 
 def get_stats_for_name(update, context):
-    base_url = "https://r6.tracker.network/profile/pc/{}"
-    context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=base_url.format_map(context.args[0]))
+    if context.args[0]:
+        url = "https://r6.tracker.network/profile/pc/{}".format(context.args[0])
+
+    r = requests.get(url)
+
+    if r.status_code == 200:
+
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="Чёрт найден!")
+
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=url)
+    else:
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="Аккаунт не найден на Трэкере")
 
 
 def ma_balls(update, context):
