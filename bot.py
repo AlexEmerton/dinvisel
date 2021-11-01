@@ -29,7 +29,8 @@ def call_for_rainbow(update, context):
 
 def get_stats_for_name(update, context):
     if context.args[0]:
-        url = "https://r6.tracker.network/profile/pc/{}".format(context.args[0])
+        url = "https://r6.tracker.network/profile/pc/{}".format(
+            context.args[0])
 
     r = requests.get(url)
 
