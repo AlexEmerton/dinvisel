@@ -27,8 +27,10 @@ def call_for_rainbow(update, context):
 # search for stats
 
 def get_stats_for_name(update, context):
+    base_url = "https://r6.tracker.network/profile/pc/{}"
     context.bot.send_message(
-        chat_id=update.effective_chat.id, text=context.args[0])
+        chat_id=update.effective_chat.id,
+        text=base_url.format_map(context.args[0]))
 
 
 def ma_balls(update, context):
