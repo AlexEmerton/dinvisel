@@ -47,7 +47,7 @@ def get_stats_for_name(update, context):
 
 def say_fast(update, context):
     context.bot.send_video(chat_id=update.effective_chat.id,
-                           video="AAMCBAADGQEAAQ4YhGGEg1gODsHw4hCJU1SzRfdZizSQAAIQCwAChmAgUME2eNWmNBiEAQAHbQADIgQ")
+                           video="BAACAgQAAxkBAAEOGIRhhINYDg7B8OIQiVNUs0X3WYs0kAACEAsAAoZgIFDBNnjVpjQYhCIE")
 
 
 def ma_balls(update, context):
