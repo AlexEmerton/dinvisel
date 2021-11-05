@@ -45,6 +45,11 @@ def get_stats_for_name(update, context):
             text="Аккаунт не найден на Трэкере")
 
 
+def say_fast(update, context):
+    context.bot.send_video(chat_id=update.effective_chat.id,
+                           video="https://drive.google.com/file/d/1yj-7QN2TQG4wkFUEO8IifCmrYzBdHvhi/view?usp=sharing")
+
+
 def ma_balls(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="ma balls")
 
@@ -72,6 +77,9 @@ def main():
 
     dispatcher.add_handler(MessageHandler(
         (Filters.entity('mention') & Filters.regex(r'go?')), call_for_rainbow))
+
+    dispatcher.add_handler(MessageHandler(
+            (Filters.entity('mention') & Filters.regex(r'быстро')), say_fast))
 
     # log all errors
     dispatcher.add_error_handler(error)
