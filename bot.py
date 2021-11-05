@@ -78,8 +78,7 @@ def main():
     dispatcher.add_handler(MessageHandler(
         (Filters.entity('mention') & Filters.regex(r'go?')), call_for_rainbow))
 
-    dispatcher.add_handler(MessageHandler(
-            (Filters.entity('mention') & Filters.regex(r'быстро')), say_fast))
+    dispatcher.add_handler(MessageHandler(Filters.regex(r'быстро'), say_fast))
 
     # log all errors
     dispatcher.add_error_handler(error)
