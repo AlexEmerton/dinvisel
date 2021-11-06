@@ -8,6 +8,12 @@ class Video:
     def send_random_quote(self):
         return CommandHandler('wisdom', self._send_random_quote)
 
+    def send_quote_by_key(self):
+        return CommandHandler('wisdom', self._send_quote_by_key)
+
+    def send_video_family(self):
+        return CommandHandler('family', self._send_video_family)
+
     def send_video_fast(self):
         return MessageHandler(
             (Filters.regex(
@@ -24,12 +30,20 @@ class Video:
         pass
 
     @staticmethod
-    def send_video_head():
-        pass
+    def _send_video_family(update, context):
+        context.bot.send_video(chat_id=update.effective_chat.id,
+                               video=VideoCuts.cuts["семья"])
 
     @staticmethod
-    def send_quote(update, context):
-        pass
+    def _send_quote_by_key(update, context):
+        try:
+            clip = VideoCuts.cuts[context.args[0]]
+            context.bot.send_video(chat_id=update.effective_chat.id,
+                                   video=clip)
+        except KeyError:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text="Такого клипа нет 👀")
 
     @staticmethod
     def _send_random_quote(update, context):
