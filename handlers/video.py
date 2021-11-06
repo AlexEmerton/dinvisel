@@ -1,4 +1,4 @@
-from ..helpers.consts import Assets
+from handlers.helpers.consts import Assets
 
 
 class Video:

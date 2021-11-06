@@ -1,5 +1,5 @@
 from telegram.ext import MessageHandler, CommandHandler, Filters, Updater
-from helpers.configs import ConfigParser
+from handlers.helpers.configs import ConfigParser
 
 from handlers.chat import Chat
 from handlers.command import Command
