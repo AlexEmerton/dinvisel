@@ -9,7 +9,7 @@ class Video:
         return CommandHandler('wisdom', self._send_random_quote)
 
     def send_quote_by_key(self):
-        return CommandHandler('wisdom', self._send_quote_by_key)
+        return CommandHandler('clip', self._send_quote_by_key)
 
     def send_video_family(self):
         return CommandHandler('family', self._send_video_family)
