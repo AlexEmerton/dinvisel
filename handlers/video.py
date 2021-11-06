@@ -6,7 +6,8 @@ class Video:
 
     def send_video_fast(self):
         return MessageHandler(
-            Filters.regex(Matchers.QUICK) | Filters.regex(Matchers.PROVERNEM),
+            (Filters.regex(
+                Matchers.QUICK) | Filters.regex(Matchers.PROVERNEM)),
             self._send_video_fast)
 
     @staticmethod
