@@ -1,5 +1,5 @@
 import random
-from handlers.helpers.consts import Assets, Matchers, VideoCuts
+from handlers.helpers.consts import Matchers, VideoCuts
 from telegram.ext import MessageHandler, CommandHandler, Filters
 
 
@@ -17,7 +17,7 @@ class Video:
     @staticmethod
     def _send_video_fast(update, context):
         context.bot.send_video(chat_id=update.effective_chat.id,
-                               video=Assets.QUICK_VIDEO_ID)
+                               video=VideoCuts.cuts["быстро"])
 
     @staticmethod
     def send_video_bro():
