@@ -1,4 +1,4 @@
-from telegram.ext import MessageHandler, CommandHandler, Filters, Updater
+from telegram.ext import Updater
 from handlers.helpers.configs import ConfigParser
 
 from handlers.chat import Chat
@@ -16,26 +16,24 @@ def main():
     updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
-    commands = Command()
-    chat = Chat()
-    error = Error()
-    image = Image()
+    commands, chat, error, image = Command(), Chat(), Error(), Image()
     video = Video()
 
+    # handle /slash commands
     dispatcher.add_handler(commands.start())
     dispatcher.add_handler(commands.get_stats_for_name())
 
-    # dispatcher.add_handler(MessageHandler(Filters.regex(joke_regex), ma_balls))
-    #
-    # dispatcher.add_handler(MessageHandler(
-    #     (Filters.entity('mention') & Filters.regex(Matchers.GO)),
-    #     call_for_rainbow))
-    #
-    # dispatcher.add_handler(MessageHandler(
-    #     Filters.regex(Matchers.GO), send_video_fast))
+    # handle image sending commands
+    dispatcher.add_handler(image.send_joke())
+
+    # handle chat commands
+    dispatcher.add_handler(chat.call_for_rainbow())
+
+    # handle video sending commands
+    dispatcher.add_handler(video.send_video_fast())
 
     # log all errors
-    dispatcher.add_error_handler(error)
+    dispatcher.add_error_handler(error.log_exception)
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,

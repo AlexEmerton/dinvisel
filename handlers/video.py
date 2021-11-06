@@ -1,10 +1,15 @@
-from handlers.helpers.consts import Assets
+from handlers.helpers.consts import Assets, Matchers
+from telegram.ext import MessageHandler, Filters
 
 
 class Video:
 
+    def send_video_fast(self):
+        return MessageHandler(
+            Filters.regex(Matchers.GO), self._send_video_fast)
+
     @staticmethod
-    def send_video_fast(update, context):
+    def _send_video_fast(update, context):
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=Assets.QUICK_VIDEO_ID)
 
