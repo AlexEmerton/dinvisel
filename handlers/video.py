@@ -6,7 +6,7 @@ from telegram.ext import MessageHandler, CommandHandler, Filters
 class Video:
 
     def send_random_quote(self):
-        return CommandHandler('мудрость', self._send_random_quote)
+        return CommandHandler('wisdom', self._send_random_quote)
 
     def send_video_fast(self):
         return MessageHandler(
