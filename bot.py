@@ -13,14 +13,14 @@ APP_NAME = ConfigParser.get_app_name()
 
 
 def main():
+    updater = Updater(token=TOKEN, use_context=True)
+    dispatcher = updater.dispatcher
+
     commands = Command()
     chat = Chat()
     error = Error()
     image = Image()
     video = Video()
-
-    updater = Updater(token=TOKEN, use_context=True)
-    dispatcher = updater.dispatcher
 
     dispatcher.add_handler(commands.start())
     dispatcher.add_handler(commands.get_stats_for_name())
