@@ -32,6 +32,8 @@ def main():
     # handle video sending commands
     dispatcher.add_handler(video.send_video_fast())
     dispatcher.add_handler(video.send_random_quote())
+    dispatcher.add_handler(video.send_video_family())
+    dispatcher.add_handler(video.send_quote_by_key())
 
     # log all errors
     dispatcher.add_error_handler(error.log_exception)
