@@ -7,6 +7,6 @@ logger = logging.getLogger(__name__)
 
 
 class Error:
-    def log_exception(update, context):
+    def log_exception(update, context, x):
         """Log Errors caused by Updates."""
         logger.warning('Update "%s" caused error "%s"', update, context.error)
