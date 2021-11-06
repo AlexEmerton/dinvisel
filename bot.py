@@ -28,6 +28,7 @@ def main():
 
     # handle chat commands
     dispatcher.add_handler(chat.call_for_rainbow())
+    dispatcher.add_handler(chat.against())
 
     # handle video sending commands
     dispatcher.add_handler(video.send_video_fast())
