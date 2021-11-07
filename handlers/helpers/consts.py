@@ -4,7 +4,7 @@ class Assets:
 
 class VideoCuts:
     cuts = {
-        "тигр": "BAACAgQAAxkBAAEOJP1hhuoTeSQMxTLF_hCVaUR8S38hzAACrwkAAqYWMFBY64iaxFwcVCIE",
+        "тигр": "BAACAgQAAxkBAAEOJ91hh8X9UUJK-dgdBhHgz_0ky-VMCQACNgkAAtwzQFCiAAFAcP2-LIMiBA",
         "договор": "BAACAgQAAxkBAAEOJQNhhuo1UK6oNR8EkTfrz0Jo2Fdq0wACsAkAAqYWMFDd4yXoS-BpOCIE",
         "улица": "BAACAgQAAxkBAAEOJQVhhupF6cWRanbjT9d-OOQeG8B9kQACsQkAAqYWMFA-DhCwBnqP_iIE",
         "только_семья": "BAACAgQAAxkBAAEOJQlhhuqPL3Kdb0z_cg0CSMqb0xr3QQACsgkAAqYWMFADsIszDo2KfSIE",
