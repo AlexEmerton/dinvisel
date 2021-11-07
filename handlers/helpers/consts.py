@@ -16,7 +16,7 @@ class VideoCuts:
         "форма": "BAACAgQAAxkBAAEOJRVhhuseAhFIn05DhdttNQIyPu9QzAACuAkAAqYWMFAYM0zQYlvQ0iIE",
         "водила": "BAACAgQAAxkBAAEOJRdhhus1Xc2y9-lf_GNEXwShQ57LlAACuQkAAqYWMFDctqejZTUjfCIE",
         "капот": "BAACAgQAAxkBAAEOJRlhhutFP3ZFnr_A2YGiws65zr_yVgACugkAAqYWMFAVamoeYx_imiIE",
-        "победа": "BAACAgQAAxkBAAEOJRthhutXDJCiQqegJYMMZgeD0tP5CgACuwkAAqYWMFCOFJftiGNf4iIE",
+        "победа": "https://app.box.com/s/ki2ik335sx2rcknlk78684vlx025qwet",
         "быстро": "BAACAgQAAxkBAAEOJIhhhtmW9D7YndRlxk6iVc6g_D_QNwACmAkAAqYWMFDO8l9QbGJIjyIE"
     }
 
