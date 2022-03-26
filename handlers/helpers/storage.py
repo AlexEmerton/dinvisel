@@ -39,14 +39,21 @@ class Storage(S3Service):
         :param file_type: optional, only filter by files ending with a specific file_type
         :return:
         """
+        import logging
+        logger = logging.getLogger(__name__)
+
         objects = []
         fetched_objects = self.s3.list_objects_v2(
             Bucket=self.bucket
         )
 
+        logger.info("OBJECT TYPE::::::")
+        logger.info(type(fetched_objects))
+
         for _ in fetched_objects:
+            logger.info(type(_))
             if file_type:
-                if _['Contents']['Key'].endswith("mp4"):
+                if _['Contents'][0]['Key'].endswith("mp4"):
                     objects.append(_)
             else:
                 objects.append(_)
