@@ -1,5 +1,6 @@
-file_hosting_service:
-    url: 'https://s3.pl-waw.scw.cloud'
+s3_service:
+    protocol: 'https'
+    name: 's3.pl-waw.scw.cloud'
     bucket_name: 'dinvisel-media'
     region_name: 'pl-waw'
 

@@ -1,13 +1,16 @@
 import boto3
 
+from handlers.s3_service import S3Service
 
-class Storage:
+
+class Storage(S3Service):
     def __init__(self, app_configs, aws_secrets):
-        self.bucket = app_configs['file_hosting_service']['bucket_name']
-        self.region_name = app_configs['file_hosting_service']['region_name']
-        self.endpoint_url = app_configs['file_hosting_service']['url']
+        super().__init__(app_configs)
+
         self.aws_access_key_id = aws_secrets.aws_access_key_id
         self.aws_secret_access_key = aws_secrets.aws_access_key
+
+        self.s3 = self.get_resource()
 
     def get_resource(self):
         return boto3.resource(
@@ -19,13 +22,21 @@ class Storage:
             aws_secret_access_key=self.aws_secret_access_key
         )
 
-    def get_all_objects(self):
-        import logging
-        log = logging.getLogger(__name__)
-        s3 = self.get_resource()
+    def get_all_object_keys(self, file_type=None):
+        """
+        get keys of all s3 objects from bucket
+        :param file_type: optional, only filter by files ending with a specific file_type
+        :return:
+        """
+        bucket = self.s3.Bucket(self.bucket)
+        objects = []
 
-        bucket = s3.Bucket(self.bucket)
+        for obj in bucket.objects.all():
+            if file_type:
+                if obj.key.endswith('mp4'):
+                    objects.append(obj.key)
+            else:
+                objects.append(obj.key)
 
-        for my_bucket_object in bucket.objects.all():
-            if my_bucket_object.key.endswith('mp4'):
-                log.info(my_bucket_object.key)
+        return objects
+

@@ -18,12 +18,14 @@ class Command:
         return CommandHandler('go', self._call_for_rainbow)
 
     def get_objects(self):
-        return CommandHandler('objects', self._get_objects)
+        return CommandHandler('clips', self._get_hosted_clips)
 
-    def _get_objects(self, update, context):
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text="listing objects...")
-        self.storage.get_all_objects()
+    def _get_hosted_clips(self, update, context):
+        objects = self.storage.get_all_object_keys(file_type="mp4")
+
+        for _ in objects:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text=_)
 
     @ staticmethod
     def _start(update, context):

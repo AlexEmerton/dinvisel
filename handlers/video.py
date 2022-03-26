@@ -1,13 +1,14 @@
+import logging
 import random
 from handlers.helpers.consts import Matchers
 from telegram.ext import MessageHandler, CommandHandler, Filters
 
+from handlers.s3_service import S3Service
 
-class Video:
+
+class Video(S3Service):
     def __init__(self, app_configs):
-        self.s3_service_url = app_configs['file_hosting_service']['url']
-        self.s3_bucket_name = app_configs['file_hosting_service']['bucket_name']
-        self.s3_bucket_host_name = f"{self.s3_bucket_name}.{self.s3_service_url}"
+        super().__init__(app_configs)
 
     def send_random_quote(self):
         return CommandHandler('wisdom', self._send_random_quote)
@@ -25,7 +26,7 @@ class Video:
             self._send_video_fast)
 
     def _send_video_fast(self, update, context):
-        clip = f'{self.s3_bucket_host_name}/быстро.mp4'
+        clip = f'{self.bucket_endpoint_name}/быстро.mp4'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
 
@@ -34,17 +35,18 @@ class Video:
         pass
 
     def _send_video_family(self, update, context):
-        clip = f'{self.s3_bucket_host_name}/семья.mp4'
+        clip = f'{self.bucket_endpoint_name}/семья.mp4'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
 
     def _send_quote_by_key(self, update, context):
         try:
-            # do some check here to verify the requested is in the list of objects in the video bucket
-            clip = f'{self.s3_bucket_host_name}/{context.args[0]}.mp4'
+            clip = f'{self.bucket_endpoint_name}/{context.args[0]}.mp4'
             context.bot.send_video(chat_id=update.effective_chat.id,
                                    video=clip)
-        except KeyError:
+        except Exception:
+            logger = logging.getLogger(__name__)
+            logger.exception("capture this! ")
             context.bot.send_message(
                 chat_id=update.effective_chat.id,
                 text="Такого клипа нет 👀")
