@@ -47,8 +47,8 @@ class Storage(S3Service):
         for _ in fetched_objects['Contents']:
             if file_type:
                 if _['Key'].endswith("mp4"):
-                    objects.append(_)
+                    objects.append(_['Key'])
             else:
-                objects.append(_)
+                objects.append(_['Key'])
 
         return objects

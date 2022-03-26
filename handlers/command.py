@@ -25,7 +25,7 @@ class Command:
 
         for _ in objects:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text=_['Contents']['Key'])
+                chat_id=update.effective_chat.id, text=_)
 
     @ staticmethod
     def _start(update, context):
