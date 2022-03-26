@@ -27,4 +27,4 @@ class Storage:
         bucket = s3.Bucket(self.bucket)
 
         for my_bucket_object in bucket.objects.all():
-            log.info("FROM BUCKET: " + my_bucket_object)
+            log.info(my_bucket_object.key)
