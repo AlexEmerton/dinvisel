@@ -34,6 +34,7 @@ def main():
     dispatcher.add_handler(commands.start())
     dispatcher.add_handler(commands.get_stats_for_name())
     dispatcher.add_handler(commands.call_for_rainbow())
+    dispatcher.add_handler(commands.get_objects())
 
     # handle image sending commands
     dispatcher.add_handler(image.send_joke())
