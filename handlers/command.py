@@ -23,9 +23,8 @@ class Command:
     def _get_hosted_clips(self, update, context):
         objects = self.storage.get_all_object_keys(file_type="mp4")
 
-        for _ in objects:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text=_)
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text=', '.join(objects))
 
     @ staticmethod
     def _start(update, context):
