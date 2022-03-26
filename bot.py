@@ -5,7 +5,7 @@ from helpers.configs import ConfigParser
 
 from handlers.chat import Chat
 from handlers.command import Command
-from logging.error import Error
+from loggers.error import Error
 from handlers.image import Image
 from handlers.video import Video
 from secrets.aws_secrets import AwsSecrets
