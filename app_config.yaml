@@ -1,0 +1,5 @@
+file_hosting_service:
+    url: 'https://dinvisel-media.s3.pl-waw.scw.cloud'
+
+assets:
+  din_laughing: 'vin_laugh.jpg'
