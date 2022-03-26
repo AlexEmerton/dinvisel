@@ -10,6 +10,7 @@ from handlers.video import Video
 TOKEN = ConfigParser.get_token()
 PORT = ConfigParser.get_port()
 APP_NAME = ConfigParser.get_app_name()
+APP_CONFIGS = ConfigParser.get_app_configs()
 
 
 def main():
@@ -17,7 +18,7 @@ def main():
     dispatcher = updater.dispatcher
 
     commands, chat, error, image = Command(), Chat(), Error(), Image()
-    video = Video()
+    video = Video(APP_CONFIGS)
 
     # handle /slash commands
     dispatcher.add_handler(commands.start())

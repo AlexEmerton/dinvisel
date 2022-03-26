@@ -1,4 +1,5 @@
 import os
+import yaml
 
 
 class ConfigParser:
@@ -14,3 +15,9 @@ class ConfigParser:
     @staticmethod
     def get_app_name():
         return 'https://dinvisel.herokuapp.com/'
+
+    @staticmethod
+    def get_app_configs():
+        with open("app_config.yaml", "r") as f:
+            config = yaml.safe_load(f)
+        return config

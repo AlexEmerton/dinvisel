@@ -4,6 +4,8 @@ from telegram.ext import MessageHandler, CommandHandler, Filters
 
 
 class Video:
+    def __init__(self, app_configs):
+        self.file_hosting_service = app_configs['file_hosting_service']['url']
 
     def send_random_quote(self):
         return CommandHandler('wisdom', self._send_random_quote)
@@ -34,10 +36,9 @@ class Video:
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=VideoCuts.cuts["семья"])
 
-    @staticmethod
-    def _send_quote_by_key(update, context):
+    def _send_quote_by_key(self, update, context):
         try:
-            clip = VideoCuts.cuts[context.args[0]]
+            clip = "%s/%s.mp4" % (self.file_hosting_service, context.args[0])
             context.bot.send_video(chat_id=update.effective_chat.id,
                                    video=clip)
         except KeyError:
