@@ -21,7 +21,7 @@ class Storage(S3Service):
         self.s3 = self.get_resource()
 
     def get_resource(self):
-        return boto3.client(
+        return boto3.resource(
             's3',
             region_name=self.region_name,
             use_ssl=True,
