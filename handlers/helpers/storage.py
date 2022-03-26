@@ -27,4 +27,5 @@ class Storage:
         bucket = s3.Bucket(self.bucket)
 
         for my_bucket_object in bucket.objects.all():
-            log.info(my_bucket_object.key)
+            if my_bucket_object.key.endswith('mp4'):
+                log.info(my_bucket_object.key)
