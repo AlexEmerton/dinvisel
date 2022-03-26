@@ -1,4 +1,5 @@
 import boto3
+from botocore.client import Config
 
 from handlers.s3_service import S3Service
 
@@ -10,16 +11,24 @@ class Storage(S3Service):
         self.aws_access_key_id = aws_secrets.aws_access_key_id
         self.aws_secret_access_key = aws_secrets.aws_access_key
 
+        self.config = Config(
+            retries={
+                'max_attempts': 2,
+                'mode': 'standard'
+            }
+        )
+
         self.s3 = self.get_resource()
 
     def get_resource(self):
-        return boto3.resource(
+        return boto3.client(
             's3',
             region_name=self.region_name,
             use_ssl=True,
             endpoint_url=self.endpoint_url,
             aws_access_key_id=self.aws_access_key_id,
-            aws_secret_access_key=self.aws_secret_access_key
+            aws_secret_access_key=self.aws_secret_access_key,
+            config=self.config
         )
 
     def get_all_object_keys(self, file_type=None):

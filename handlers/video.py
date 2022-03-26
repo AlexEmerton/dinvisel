@@ -1,5 +1,8 @@
 import logging
 import random
+
+import telegram
+
 from handlers.helpers.consts import Matchers
 from telegram.ext import MessageHandler, CommandHandler, Filters
 
@@ -44,9 +47,7 @@ class Video(S3Service):
             clip = f'{self.bucket_endpoint_name}/{context.args[0]}.mp4'
             context.bot.send_video(chat_id=update.effective_chat.id,
                                    video=clip)
-        except Exception:
-            logger = logging.getLogger(__name__)
-            logger.exception("capture this! ")
+        except telegram.error.BadRequest:
             context.bot.send_message(
                 chat_id=update.effective_chat.id,
                 text="Такого клипа нет 👀")
