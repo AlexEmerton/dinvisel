@@ -23,12 +23,12 @@ def main():
     # handle /slash commands
     dispatcher.add_handler(commands.start())
     dispatcher.add_handler(commands.get_stats_for_name())
+    dispatcher.add_handler(commands.call_for_rainbow())
 
     # handle image sending commands
     dispatcher.add_handler(image.send_joke())
 
     # handle chat commands
-    dispatcher.add_handler(chat.call_for_rainbow())
     dispatcher.add_handler(chat.against())
 
     # handle video sending commands
