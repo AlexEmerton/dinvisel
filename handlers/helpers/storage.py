@@ -48,12 +48,11 @@ class Storage(S3Service):
         )
 
         logger.info("OBJECT TYPE::::::")
-        logger.info(type(fetched_objects))
 
-        for _ in fetched_objects:
+        for _ in fetched_objects['Contents'][0]:
             logger.info(type(_))
             if file_type:
-                if _['Contents'][0]['Key'].endswith("mp4"):
+                if _['Key'].endswith("mp4"):
                     objects.append(_)
             else:
                 objects.append(_)
