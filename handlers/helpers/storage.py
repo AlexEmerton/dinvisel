@@ -49,7 +49,7 @@ class Storage(S3Service):
 
         logger.info("OBJECT TYPE::::::")
 
-        for _ in fetched_objects['Contents'][0]:
+        for _ in fetched_objects['Contents'][0].items():
             logger.info(_)
             logger.info(type(_))
             if file_type:
