@@ -12,6 +12,8 @@ class Storage(S3Service):
         self.aws_secret_access_key = aws_secrets.aws_access_key
 
         self.config = Config(
+            read_timeout=900,
+            connect_timeout=900,
             retries={
                 'max_attempts': 2,
                 'mode': 'standard'
@@ -21,7 +23,7 @@ class Storage(S3Service):
         self.s3 = self.get_resource()
 
     def get_resource(self):
-        return boto3.resource(
+        return boto3.client(
             's3',
             region_name=self.region_name,
             use_ssl=True,
@@ -37,15 +39,25 @@ class Storage(S3Service):
         :param file_type: optional, only filter by files ending with a specific file_type
         :return:
         """
-        bucket = self.s3.Bucket(self.bucket)
-        objects = []
+        import logging
 
-        for obj in bucket.objects.all():
-            if file_type:
-                if obj.key.endswith('mp4'):
-                    objects.append(obj.key)
-            else:
-                objects.append(obj.key)
+        # bucket = self.s3.Bucket(self.bucket)
 
-        return objects
+        objects = self.s3.list_objects_v2(
+            Bucket=self.bucket
+        )
+
+        logger = logging.getLogger(__name__)
+        logger.info("OBJECTS::::::")
+        logger.info(objects)
+        return
+
+        # for obj in bucket.objects.all():
+        #     if file_type:
+        #         if obj.key.endswith('mp4'):
+        #             objects.append(obj.key)
+        #     else:
+        #         objects.append(obj.key)
+
+        # return objects
 
