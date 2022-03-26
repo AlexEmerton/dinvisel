@@ -1,4 +1,6 @@
 from telegram.ext import Updater
+
+from handlers.helpers.storage import Storage
 from helpers.configs import ConfigParser
 
 from handlers.chat import Chat
@@ -6,18 +8,26 @@ from handlers.command import Command
 from handlers.error import Error
 from handlers.image import Image
 from handlers.video import Video
+from secrets.aws_secrets import AwsSecrets
 
 APP_CONFIGS = ConfigParser.get_app_configs()
 TOKEN = ConfigParser.get_token()
 PORT = ConfigParser.get_port()
+AWS_SECRET_KEY_ID = ConfigParser.get_aws_access_key_id()
+AWS_SECRET_KEY = ConfigParser.get_aws_secret_access_key()
+
+AWS_SECRETS = AwsSecrets(AWS_SECRET_KEY_ID, AWS_SECRET_KEY)
+
 APP_NAME = APP_CONFIGS['application']['hosted_address']
 
 
 def main():
+    storage = Storage(APP_CONFIGS, AWS_SECRETS)
+
     updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
-    commands, chat, error, image = Command(), Chat(), Error(), Image(APP_CONFIGS)
+    commands, chat, error, image = Command(storage), Chat(), Error(), Image(APP_CONFIGS)
     video = Video(APP_CONFIGS)
 
     # handle /slash commands

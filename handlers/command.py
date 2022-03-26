@@ -1,8 +1,12 @@
 import requests
 from telegram.ext import CommandHandler
 
+from handlers.helpers.storage import Storage
+
 
 class Command:
+    def __init__(self, storage: Storage):
+        self.storage = storage
 
     def start(self):
         return CommandHandler('start', self._start)
@@ -12,6 +16,14 @@ class Command:
 
     def call_for_rainbow(self):
         return CommandHandler('go', self._call_for_rainbow)
+
+    def get_objects(self):
+        return CommandHandler('objects', self._get_objects)
+
+    def _get_objects(self, update, context):
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text="listing objects...")
+        self.storage.get_all_objects()
 
     @ staticmethod
     def _start(update, context):

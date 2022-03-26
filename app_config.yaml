@@ -1,5 +1,7 @@
 file_hosting_service:
     url: 'https://dinvisel-media.s3.pl-waw.scw.cloud'
+    bucket_name: 'dinvisel-media'
+    region_name: 'pl-waw'
 
 assets:
   din_laughing: 'vin_laugh.jpg'
