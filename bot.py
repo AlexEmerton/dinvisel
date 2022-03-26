@@ -1,5 +1,5 @@
 from telegram.ext import Updater
-from handlers.helpers.configs import ConfigParser
+from helpers.configs import ConfigParser
 
 from handlers.chat import Chat
 from handlers.command import Command
@@ -7,17 +7,17 @@ from handlers.error import Error
 from handlers.image import Image
 from handlers.video import Video
 
+APP_CONFIGS = ConfigParser.get_app_configs()
 TOKEN = ConfigParser.get_token()
 PORT = ConfigParser.get_port()
-APP_NAME = ConfigParser.get_app_name()
-APP_CONFIGS = ConfigParser.get_app_configs()
+APP_NAME = APP_CONFIGS['application']['hosted_address']
 
 
 def main():
     updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
-    commands, chat, error, image = Command(), Chat(), Error(), Image()
+    commands, chat, error, image = Command(), Chat(), Error(), Image(APP_CONFIGS)
     video = Video(APP_CONFIGS)
 
     # handle /slash commands

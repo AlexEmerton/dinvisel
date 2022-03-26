@@ -1,5 +1,5 @@
 import random
-from handlers.helpers.consts import Matchers, VideoCuts
+from handlers.helpers.consts import Matchers
 from telegram.ext import MessageHandler, CommandHandler, Filters
 
 
@@ -22,23 +22,24 @@ class Video:
                 Matchers.QUICK) | Filters.regex(Matchers.PROVERNEM)),
             self._send_video_fast)
 
-    @staticmethod
-    def _send_video_fast(update, context):
+    def _send_video_fast(self, update, context):
+        clip = f'{self.file_hosting_service}/быстро.mp4'
         context.bot.send_video(chat_id=update.effective_chat.id,
-                               video=VideoCuts.cuts["быстро"])
+                               video=clip)
 
     @staticmethod
     def send_video_bro():
         pass
 
-    @staticmethod
-    def _send_video_family(update, context):
+    def _send_video_family(self, update, context):
+        clip = f'{self.file_hosting_service}/семья.mp4'
         context.bot.send_video(chat_id=update.effective_chat.id,
-                               video=VideoCuts.cuts["семья"])
+                               video=clip)
 
     def _send_quote_by_key(self, update, context):
         try:
-            clip = "%s/%s.mp4" % (self.file_hosting_service, context.args[0])
+            # do some check here to verify the requested is in the list of objects in the video bucket
+            clip = f'{self.file_hosting_service}/{context.args[0]}.mp4'
             context.bot.send_video(chat_id=update.effective_chat.id,
                                    video=clip)
         except KeyError:
@@ -48,7 +49,8 @@ class Video:
 
     @staticmethod
     def _send_random_quote(update, context):
-        clip = random.choice(list(VideoCuts.cuts.values()))
-
-        context.bot.send_video(chat_id=update.effective_chat.id,
-                               video=clip)
+        pass
+        # clip = random.choice(list(VideoCuts.cuts.values()))
+        #
+        # context.bot.send_video(chat_id=update.effective_chat.id,
+        #                        video=clip)

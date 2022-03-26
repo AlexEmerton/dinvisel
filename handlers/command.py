@@ -18,8 +18,13 @@ class Command:
     @ staticmethod
     def _get_stats_for_name(update, context):
         if context.args[0]:
-            url = "https://r6.tracker.network/profile/pc/{}".format(
+            url = "https://r6.tracker.network/profile/pc/{}/".format(
                 context.args[0])
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text="Нужен аккаунт для поиска, напиши так > /stats никЗдесь")
+            raise ValueError("no profile supplied!")
 
         r = requests.get(url)
 
