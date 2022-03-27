@@ -5,3 +5,4 @@ class Matchers:
     MA = r'\w*ma\b'
     FAMILY = r'семья'
     SCRIPTED = r'заскриптовано'
+    EDGY = r'дерзкий'

@@ -26,7 +26,7 @@ class Command:
         context.bot.send_message(
             chat_id=update.effective_chat.id, text=', '.join(objects))
 
-    @ staticmethod
+    @staticmethod
     def _start(update, context):
         context.bot.send_message(
             chat_id=update.effective_chat.id, text="yo")
@@ -39,7 +39,7 @@ class Command:
         context.bot.pin_chat_message(
             update.effective_chat.id, message['message_id'])
 
-    @ staticmethod
+    @staticmethod
     def _get_stats_for_name(update, context):
         if context.args[0]:
             url = "https://r6.tracker.network/profile/pc/{}/".format(

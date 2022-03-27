@@ -44,6 +44,7 @@ def main():
 
     # handle video sending commands
     dispatcher.add_handler(video.send_video_fast())
+    dispatcher.add_handler(video.send_video_edgy())
     dispatcher.add_handler(video.send_random_quote())
     dispatcher.add_handler(video.send_video_family())
     dispatcher.add_handler(video.send_quote_by_key())
