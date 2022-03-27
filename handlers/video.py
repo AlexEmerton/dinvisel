@@ -1,9 +1,9 @@
-import logging
 import random
 
 import telegram
 
 from handlers.helpers.consts import Matchers
+from handlers.helpers.encoder import Encoder
 from telegram.ext import MessageHandler, CommandHandler, Filters
 
 from handlers.s3_service import S3Service
@@ -32,10 +32,11 @@ class Video(S3Service):
         return MessageHandler((Filters.regex(Matchers.EDGY)), self._send_video_edgy)
 
     def _send_video_fast(self, update, context):
-        clip = f'{self.bucket_endpoint_name}/быстро.mp4'
+        clip_name = Encoder.encode_as_base_64('быстро.mp4')
+
+        clip = f'{self.bucket_endpoint_name}/{clip_name}'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
-        # https://dinvisel-media.s3.pl-waw.scw.cloud/%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%BE.mp4
 
     def _send_video_edgy(self, update, context):
         clip = f'{self.bucket_endpoint_name}/дерзкий.mp4'
