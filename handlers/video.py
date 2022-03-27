@@ -34,7 +34,7 @@ class Video(S3Service):
     def _send_video_fast(self, update, context):
         clip_name = Encoder.encode_as_base_64('быстро.mp4')
 
-        clip = f'{self.bucket_endpoint_name}/{clip_name}'
+        clip = f'{self.bucket_endpoint_name}/{clip_name}.mp4'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
 
