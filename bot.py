@@ -1,6 +1,7 @@
 from telegram.ext import Updater
 
 from handlers.audio import Audio
+from handlers.rainbow import Rainbow
 from handlers.voice import Voice
 from helpers.configs import ConfigParser
 
@@ -36,23 +37,26 @@ def main():
     image = Image(APP_CONFIGS, AWS_SECRETS)
     audio = Audio(APP_CONFIGS, AWS_SECRETS)
     voice = Voice(APP_CONFIGS, AWS_SECRETS)
+    rainbow = Rainbow(APP_CONFIGS, AWS_SECRETS)
     commands = Command(APP_CONFIGS, AWS_SECRETS)
 
     chat = Chat()
 
     # handle /slash commands
     dispatcher.add_handler(commands.start())
-    dispatcher.add_handler(commands.get_stats_for_name())
-    dispatcher.add_handler(commands.call_for_rainbow())
-    dispatcher.add_handler(commands.get_objects())
 
     # handle image sending commands
     dispatcher.add_handler(image.send_joke())
+
+    # handle rainbow6 commands
+    dispatcher.add_handler(rainbow.call_for_rainbow())
+    dispatcher.add_handler(rainbow.get_stats_for_name())
 
     # handle chat commands
     dispatcher.add_handler(chat.against())
 
     # handle video sending commands
+    dispatcher.add_handler(video.get_all_clips())
     dispatcher.add_handler(video.send_video_fast())
     dispatcher.add_handler(video.send_video_edgy())
     dispatcher.add_handler(video.send_random_quote())

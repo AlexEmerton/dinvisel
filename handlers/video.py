@@ -16,6 +16,9 @@ class Video(S3Client):
         self.clip_edgy = "дерзкий.mp4"
         self.clip_family = "семья.mp4"
 
+    def get_all_clips(self):
+        return CommandHandler('clips', self._get_all_clips)
+
     def send_random_quote(self):
         return CommandHandler('wisdom', self._send_random_quote)
 
@@ -34,6 +37,12 @@ class Video(S3Client):
     def send_video_edgy(self):
         return MessageHandler((Filters.regex(Matchers.EDGY)), self._send_video_edgy)
 
+    def _get_all_clips(self, update, context):
+        objects = self.get_all_object_keys(file_type="mp4")
+
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text=', '.join(objects))
+
     def _send_video_fast(self, update, context):
         clip_name = Encoder.encode_as_base_64(self.clip_fast)
 
@@ -45,10 +54,6 @@ class Video(S3Client):
         clip = f'{self.bucket_endpoint_name}/{self.clip_edgy}'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
-
-    @staticmethod
-    def send_video_bro():
-        pass
 
     def _send_video_family(self, update, context):
         clip = f'{self.bucket_endpoint_name}/{self.clip_family}'
@@ -66,6 +71,7 @@ class Video(S3Client):
                 text="Такого клипа нет 👀")
 
     def _send_random_quote(self, update, context):
-        clip = random.choice(self.get_all_object_keys())
+        random_clip_name = random.choice(self.get_all_object_keys())
+        clip = f'{self.bucket_endpoint_name}/{random_clip_name}'
 
         context.bot.send_video(chat_id=update.effective_chat.id, video=clip)
