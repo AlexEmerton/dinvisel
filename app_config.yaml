@@ -9,4 +9,3 @@ assets:
 
 application:
   hosted_address: 'https://dinvisel.herokuapp.com/'
-  port: 8443
