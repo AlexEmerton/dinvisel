@@ -35,7 +35,7 @@ def main():
     video = Video(APP_CONFIGS, AWS_SECRETS)
     image = Image(APP_CONFIGS, AWS_SECRETS)
     audio = Audio(APP_CONFIGS, AWS_SECRETS)
-    voice = Voice()
+    voice = Voice(APP_CONFIGS, AWS_SECRETS)
     commands = Command(APP_CONFIGS, AWS_SECRETS)
 
     chat = Chat()
@@ -65,6 +65,7 @@ def main():
 
     # handle voice sending commands
     dispatcher.add_handler(voice.send_tts())
+    dispatcher.add_handler(voice.send_voice_recording())
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
