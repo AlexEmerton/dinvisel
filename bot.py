@@ -1,6 +1,5 @@
 from telegram.ext import Updater
 
-from handlers.clients.s3_client import S3Client
 from helpers.configs import ConfigParser
 
 from handlers.chat import Chat
