@@ -13,7 +13,7 @@ class Voice:
         tts_text = context.args[0]
 
         tts = gTTS(text=tts_text, lang=self.DEFAULT_LANG)
-        # tts.save('tts.mp3')
+        tts.save('tts.mp3')
 
-        context.bot.send_voice(chat_id=update.effective_chat.id,
-                               voice=tts.stream())
+        context.bot.send_audio(chat_id=update.effective_chat.id,
+                               voice='./tts.mp3')
