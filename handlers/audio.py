@@ -25,7 +25,7 @@ class Audio(S3Client):
     def _get_track_by_key(self, update, context):
         try:
             track = f'{self.bucket_endpoint_name}/{context.args[0]}.mp3'
-            context.bot.send_video(chat_id=update.effective_chat.id,
+            context.bot.send_audio(chat_id=update.effective_chat.id,
                                    video=track)
         except BadRequest:
             context.bot.send_message(
