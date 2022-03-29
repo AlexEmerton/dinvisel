@@ -27,7 +27,7 @@ class Audio(S3Client):
             track = f'{self.bucket_endpoint_name}/{context.args[0]}.mp3'
             context.bot.send_audio(chat_id=update.effective_chat.id,
                                    title=context.args[0],
-                                   video=track)
+                                   audio=track)
         except BadRequest:
             context.bot.send_message(
                 chat_id=update.effective_chat.id,
