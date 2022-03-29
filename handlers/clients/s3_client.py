@@ -46,7 +46,7 @@ class S3Client(ApplicationConfigs):
 
         for _ in fetched_objects['Contents']:
             if file_type:
-                if _['Key'].endswith("mp4"):
+                if _['Key'].endswith(file_type):
                     objects.append(_['Key'])
             else:
                 objects.append(_['Key'])

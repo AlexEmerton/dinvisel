@@ -15,7 +15,7 @@ class Audio(S3Client):
         return CommandHandler('track', self._get_track_by_key)
 
     def _get_all_tracks(self, update, context):
-        tracks = self.get_all_object_keys('mp3')
+        tracks = self.get_all_object_keys(file_type='mp3')
 
         context.bot.send_message(
             chat_id=update.effective_chat.id,
@@ -26,6 +26,7 @@ class Audio(S3Client):
         try:
             track = f'{self.bucket_endpoint_name}/{context.args[0]}.mp3'
             context.bot.send_audio(chat_id=update.effective_chat.id,
+                                   title=context.args[0],
                                    video=track)
         except BadRequest:
             context.bot.send_message(
