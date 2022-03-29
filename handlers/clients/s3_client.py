@@ -1,10 +1,10 @@
 import boto3
 from botocore.client import Config
 
-from handlers.s3_service import S3Service
+from handlers.clients.application_configs import ApplicationConfigs
 
 
-class Storage(S3Service):
+class S3Client(ApplicationConfigs):
     def __init__(self, app_configs, aws_secrets):
         super().__init__(app_configs)
 

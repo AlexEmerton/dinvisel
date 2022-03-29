@@ -1,12 +1,12 @@
 import requests
 from telegram.ext import CommandHandler
 
-from handlers.helpers.storage import Storage
+from handlers.clients.s3_client import S3Client
 
 
-class Command:
-    def __init__(self, storage: Storage):
-        self.storage = storage
+class Command(S3Client):
+    def __init__(self, app_configs, aws_secrets):
+        super().__init__(app_configs, aws_secrets)
 
     def start(self):
         return CommandHandler('start', self._start)
@@ -21,7 +21,7 @@ class Command:
         return CommandHandler('clips', self._get_hosted_clips)
 
     def _get_hosted_clips(self, update, context):
-        objects = self.storage.get_all_object_keys(file_type="mp4")
+        objects = self.get_all_object_keys(file_type="mp4")
 
         context.bot.send_message(
             chat_id=update.effective_chat.id, text=', '.join(objects))

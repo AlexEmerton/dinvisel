@@ -1,17 +1,20 @@
 import random
 
-import telegram
+from telegram.error import BadRequest
 
+from handlers.clients.s3_client import S3Client
 from handlers.helpers.consts import Matchers
 from handlers.helpers.encoder import Encoder
 from telegram.ext import MessageHandler, CommandHandler, Filters
 
-from handlers.s3_service import S3Service
 
+class Video(S3Client):
+    def __init__(self, app_configs, aws_secrets):
+        super().__init__(app_configs, aws_secrets)
 
-class Video(S3Service):
-    def __init__(self, app_configs):
-        super().__init__(app_configs)
+        self.clip_fast = "быстро.mp4"
+        self.clip_edgy = "дерзкий.mp4"
+        self.clip_family = "семья.mp4"
 
     def send_random_quote(self):
         return CommandHandler('wisdom', self._send_random_quote)
@@ -32,14 +35,14 @@ class Video(S3Service):
         return MessageHandler((Filters.regex(Matchers.EDGY)), self._send_video_edgy)
 
     def _send_video_fast(self, update, context):
-        clip_name = Encoder.encode_as_base_64('быстро.mp4')
+        clip_name = Encoder.encode_as_base_64(self.clip_fast)
 
         clip = f'{self.bucket_endpoint_name}/{clip_name}.mp4'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
 
     def _send_video_edgy(self, update, context):
-        clip = f'{self.bucket_endpoint_name}/дерзкий.mp4'
+        clip = f'{self.bucket_endpoint_name}/{self.clip_edgy}'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
 
@@ -48,7 +51,7 @@ class Video(S3Service):
         pass
 
     def _send_video_family(self, update, context):
-        clip = f'{self.bucket_endpoint_name}/семья.mp4'
+        clip = f'{self.bucket_endpoint_name}/{self.clip_family}'
         context.bot.send_video(chat_id=update.effective_chat.id,
                                video=clip)
 
@@ -57,15 +60,12 @@ class Video(S3Service):
             clip = f'{self.bucket_endpoint_name}/{context.args[0]}.mp4'
             context.bot.send_video(chat_id=update.effective_chat.id,
                                    video=clip)
-        except telegram.error.BadRequest:
+        except BadRequest:
             context.bot.send_message(
                 chat_id=update.effective_chat.id,
                 text="Такого клипа нет 👀")
 
-    @staticmethod
-    def _send_random_quote(update, context):
-        pass
-        # clip = random.choice(list(VideoCuts.cuts.values()))
-        #
-        # context.bot.send_video(chat_id=update.effective_chat.id,
-        #                        video=clip)
+    def _send_random_quote(self, update, context):
+        clip = random.choice(self.get_all_object_keys())
+
+        context.bot.send_video(chat_id=update.effective_chat.id, video=clip)

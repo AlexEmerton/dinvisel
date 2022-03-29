@@ -1,11 +1,12 @@
 from telegram.ext import MessageHandler, Filters
+
+from handlers.clients.s3_client import S3Client
 from handlers.helpers.consts import Matchers
-from handlers.s3_service import S3Service
 
 
-class Image(S3Service):
-    def __init__(self, app_configs):
-        super().__init__(app_configs)
+class Image(S3Client):
+    def __init__(self, app_configs, aws_secrets):
+        super().__init__(app_configs, aws_secrets)
 
     def send_joke(self):
         return MessageHandler(Filters.regex(Matchers.MA), self._send_joke)

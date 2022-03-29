@@ -1,4 +1,4 @@
-class S3Service:
+class ApplicationConfigs:
     def __init__(self, app_configs):
         self.s3_bucket_name = app_configs['s3_service']['bucket_name']
         self.protocol = app_configs['s3_service']['protocol']

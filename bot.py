@@ -1,6 +1,6 @@
 from telegram.ext import Updater
 
-from handlers.helpers.storage import Storage
+from handlers.clients.s3_client import S3Client
 from helpers.configs import ConfigParser
 
 from handlers.chat import Chat
@@ -12,23 +12,26 @@ from secrets.aws_secrets import AwsSecrets
 
 APP_CONFIGS = ConfigParser.get_app_configs()
 TOKEN = ConfigParser.get_token()
-PORT = ConfigParser.get_port()
 AWS_SECRET_KEY_ID = ConfigParser.get_aws_access_key_id()
 AWS_SECRET_KEY = ConfigParser.get_aws_secret_access_key()
 
 AWS_SECRETS = AwsSecrets(AWS_SECRET_KEY_ID, AWS_SECRET_KEY)
 
+PORT = APP_CONFIGS['application']['port']
 APP_NAME = APP_CONFIGS['application']['hosted_address']
 
 
 def main():
-    storage = Storage(APP_CONFIGS, AWS_SECRETS)
-
     updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
-    commands, chat, error, image = Command(storage), Chat(), Error(), Image(APP_CONFIGS)
-    video = Video(APP_CONFIGS)
+    # handlers
+    video = Video(APP_CONFIGS, AWS_SECRETS)
+    image = Image(APP_CONFIGS, AWS_SECRETS)
+    commands = Command(APP_CONFIGS, AWS_SECRETS)
+
+    chat = Chat()
+    error = Error()
 
     # handle /slash commands
     dispatcher.add_handler(commands.start())

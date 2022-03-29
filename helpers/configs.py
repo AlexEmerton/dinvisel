@@ -21,10 +21,6 @@ class ConfigParser:
         return os.environ['AWS_ACCESS_KEY']
 
     @staticmethod
-    def get_app_name():
-        return 'https://dinvisel.herokuapp.com/'
-
-    @staticmethod
     def get_app_configs():
         with open("app_config.yaml", "r") as f:
             config = yaml.safe_load(f)
