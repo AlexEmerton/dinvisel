@@ -1,5 +1,4 @@
 from gtts import gTTS
-import os
 from telegram.ext import CommandHandler
 
 
@@ -16,4 +15,4 @@ class Voice:
         tts.save('tts.mp3')
 
         context.bot.send_audio(chat_id=update.effective_chat.id,
-                               voice='./tts.mp3')
+                               audio='./tts.mp3')
