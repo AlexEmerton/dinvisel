@@ -15,4 +15,4 @@ class Voice:
         tts.save('tts.mp3')
 
         context.bot.send_audio(chat_id=update.effective_chat.id,
-                               audio='./tts.mp3')
+                               audio='handlers/tts.mp3')
