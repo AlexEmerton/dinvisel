@@ -1,6 +1,7 @@
 from telegram.ext import Updater
 
 from handlers.audio import Audio
+from handlers.voice import Voice
 from helpers.configs import ConfigParser
 
 from handlers.chat import Chat
@@ -34,6 +35,7 @@ def main():
     video = Video(APP_CONFIGS, AWS_SECRETS)
     image = Image(APP_CONFIGS, AWS_SECRETS)
     audio = Audio(APP_CONFIGS, AWS_SECRETS)
+    voice = Voice()
     commands = Command(APP_CONFIGS, AWS_SECRETS)
 
     chat = Chat()
@@ -60,6 +62,9 @@ def main():
     # handle audio sending commands
     dispatcher.add_handler(audio.get_all_tracks())
     dispatcher.add_handler(audio.get_track_by_key())
+
+    # handle voice sending commands
+    dispatcher.add_handler(voice.send_tts())
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,

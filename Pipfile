@@ -8,6 +8,7 @@ python-telegram-bot = "*"
 requests = "*"
 pyyaml = "*"
 boto3 = "*"
+gTTS = "*"
 
 [dev-packages]
 
