@@ -24,13 +24,16 @@ def main():
     updater = Updater(token=TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
+    # log all errors
+    error = Error()
+    dispatcher.add_error_handler(error.log_exception)
+
     # handlers
     video = Video(APP_CONFIGS, AWS_SECRETS)
     image = Image(APP_CONFIGS, AWS_SECRETS)
     commands = Command(APP_CONFIGS, AWS_SECRETS)
 
     chat = Chat()
-    error = Error()
 
     # handle /slash commands
     dispatcher.add_handler(commands.start())
@@ -50,9 +53,6 @@ def main():
     dispatcher.add_handler(video.send_random_quote())
     dispatcher.add_handler(video.send_video_family())
     dispatcher.add_handler(video.send_quote_by_key())
-
-    # log all errors
-    dispatcher.add_error_handler(error.log_exception)
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
