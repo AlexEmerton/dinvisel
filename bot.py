@@ -16,7 +16,7 @@ AWS_SECRET_KEY = ConfigParser.get_aws_secret_access_key()
 
 AWS_SECRETS = AwsSecrets(AWS_SECRET_KEY_ID, AWS_SECRET_KEY)
 
-PORT = APP_CONFIGS['application']['port']
+PORT = int(APP_CONFIGS['application']['port'])
 APP_NAME = APP_CONFIGS['application']['hosted_address']
 
 
