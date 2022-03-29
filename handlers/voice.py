@@ -17,6 +17,9 @@ class Voice(S3Client):
     def send_voice_recording(self):
         return CommandHandler('voice_track', self._send_voice_recording)
 
+    def get_voice_recordings(self):
+        return CommandHandler('voice_tracks', self._get_voice_recordings)
+
     def _send_tts(self, update, context):
         tts_text = ' '.join(context.args)
 
@@ -35,3 +38,11 @@ class Voice(S3Client):
             context.bot.send_message(
                 chat_id=update.effective_chat.id,
                 text="Такой записи нет 👀")
+
+    def _get_voice_recordings(self, update, context):
+        tracks = self.get_all_object_keys(file_type='ogg')
+
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=', '.join(tracks)
+        )

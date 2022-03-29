@@ -66,6 +66,7 @@ def main():
     # handle voice sending commands
     dispatcher.add_handler(voice.send_tts())
     dispatcher.add_handler(voice.send_voice_recording())
+    dispatcher.add_handler(voice.get_voice_recordings())
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
