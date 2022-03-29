@@ -1,5 +1,6 @@
 from telegram.ext import Updater
 
+from handlers.audio import Audio
 from helpers.configs import ConfigParser
 
 from handlers.chat import Chat
@@ -11,12 +12,13 @@ from secrets.aws_secrets import AwsSecrets
 
 APP_CONFIGS = ConfigParser.get_app_configs()
 TOKEN = ConfigParser.get_token()
+PORT = ConfigParser.get_port()
+
 AWS_SECRET_KEY_ID = ConfigParser.get_aws_access_key_id()
 AWS_SECRET_KEY = ConfigParser.get_aws_secret_access_key()
 
 AWS_SECRETS = AwsSecrets(AWS_SECRET_KEY_ID, AWS_SECRET_KEY)
 
-PORT = ConfigParser.get_port()
 APP_NAME = APP_CONFIGS['application']['hosted_address']
 
 
@@ -31,6 +33,7 @@ def main():
     # handlers
     video = Video(APP_CONFIGS, AWS_SECRETS)
     image = Image(APP_CONFIGS, AWS_SECRETS)
+    audio = Audio(APP_CONFIGS, AWS_SECRETS)
     commands = Command(APP_CONFIGS, AWS_SECRETS)
 
     chat = Chat()
@@ -53,6 +56,10 @@ def main():
     dispatcher.add_handler(video.send_random_quote())
     dispatcher.add_handler(video.send_video_family())
     dispatcher.add_handler(video.send_quote_by_key())
+
+    # handle audio sending commands
+    dispatcher.add_handler(audio.get_all_tracks())
+    dispatcher.add_handler(audio.get_track_by_key())
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
